@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -5,5 +6,15 @@ import { Injectable } from '@angular/core';
 })
 export class InfoPaginaService {
 
-  constructor() { }
+  info: any = {};
+  loaded = false;
+
+  constructor(private http: HttpClient) {
+    this.http.get('assets/data/page-data.json')
+      .subscribe(data => {
+        this.loaded = true;
+        this.info = data;
+      }
+      );
+  }
 }
